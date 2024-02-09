@@ -1,0 +1,28 @@
+.spinner-green{
+    width: 1rem;
+    height: 1rem;
+    padding: 0.1rem;
+    margin: 0.1rem;
+    border: solid 3px white;
+    border-top: solid 3px green ;
+    border-radius: 50%;
+    animation: spin 0.3s linear infinite;
+}
+.spinner-red{
+    width: 1rem;
+    height: 1rem;
+    padding: 0.1rem;
+    margin: 0.1rem;
+    border: solid 3px white;
+    border-top: solid 3px red ;
+    border-radius: 50%;
+    animation: spin 0.3s linear infinite;
+}
+@keyframes spin{
+    0%{
+        transform: rotate(0deg);
+    }
+    100%{
+        transform: rotate(360deg);
+    }
+}

@@ -1,0 +1,200 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+#root{
+  font-family: "DM Sans";
+}
+.todoApp{
+  display: flex;
+  flex-direction: column;
+  background-color: #EEF5FF;
+  width: 100vw;
+  height: 100vh;
+
+}
+.newContainer{
+  width: 100vw;
+  height: 10vh;
+}
+.newTask{
+  padding: 0.5rem;
+  margin: 0.5rem;
+  position: absolute;
+  right: 12rem;
+  width: fit-content;
+  color: white;
+  font-weight: bold;
+  background-color:#3652AD;
+  border: solid 2px #3652AD;
+  cursor: pointer;
+  border-radius: 0.3rem;
+}
+th{
+  padding: 1.2rem;
+}
+
+td{
+  padding: 1rem;
+
+}
+tbody{
+  align-items: center;
+}
+.bar{
+  height: 0.2rem;
+  background-color: #0B60B0;
+  margin: 0;
+
+}
+.taskListing{
+  border: solid 1.5px gray;
+  padding: 1.3rem;
+  margin: 1.3rem auto;
+  border-radius: 1.3rem;
+  text-align: center;
+  width: fit-content;
+  box-shadow: 3px 3px 15px gray;
+  background-color: white;
+
+}
+.modelBackground{
+  position: fixed;
+  top:0;
+  height: 100%; 
+  width: 100%;
+  padding: 1rem;
+  background-color: #EEF5FF;
+}
+.modelContainer{
+  display: flex;
+  width: max-content;
+  margin: auto;
+  flex-direction: column;
+  justify-content: center;
+  box-shadow: 2px 2px 11px white;
+  background-color: white;
+  padding: 1rem;
+  border-radius: 1rem;
+  overflow: auto;
+  border: solid 1.5px gray;
+
+}
+textarea{
+  resize: none;
+  border-radius: 1rem;
+}
+textarea::selection{
+  resize: none;
+  color: white;
+  background-color: #FF6C22;
+}
+.title{
+  text-align: center;
+  background-color: #0B60B0;
+  color:white;
+  padding: 0.4rem;
+  margin-bottom: 1rem;
+}
+.heading{
+  color: white;
+}
+
+.exit-button{
+  display: flex;
+  flex-direction: row;
+  justify-content: right;
+}
+.cancel{
+  padding: 0;
+}
+.inputs{
+  display:flex;
+  flex-direction: column;
+}
+.input{
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  border: solid 1px gray;
+
+}
+.input:focus{
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  
+}
+.input::selection{
+  background-color:#FF6C22;
+  color: white;
+}
+.lables{
+  margin: 0.5rem 0;
+}
+.cancel{
+  color:red;
+  background-color: white;
+  border: solid 2px red;
+  padding: 0.4rem;
+  border-radius: 0.4rem;
+  cursor:pointer;
+  font-weight:bold;
+  transition: all 0.2s ease-in-out;
+
+}
+.cancel:hover{
+  color:white;
+  background-color: red;
+  border: solid 2px red;
+  padding: 0.4rem;
+  border-radius: 0.4rem;
+  cursor:pointer
+
+}
+.cancle-btn{
+  background-color: rgb(147, 23, 23);
+  color: white;
+  padding: 1rem;
+  margin: 1.5rem;
+  cursor: pointer;
+
+}
+.cancel-disabled{
+  background-color: rgb(147, 23, 23);
+  color: white;
+  padding: 0.4rem;
+  opacity: 0.2;
+  cursor: not-allowed;
+  border-radius: 0.4rem;
+  font-weight: bold;
+}
+.operations{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 0.4rem;
+
+}
+.save-btn{
+  background-color: white;
+  color: green;
+  border: solid 2px green;
+  padding: 0.4rem;
+  margin: 0.4rem;
+  cursor: pointer;
+  border-radius: 0.4rem;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease-in-out;
+}
+
+.save-btn:hover{
+  background-color: green;
+  color: white;
+  border: solid 2px green;
+  padding: 0.4rem;
+  margin: 0.4rem;
+  cursor: pointer;
+  border-radius: 0.4rem;
+  cursor: pointer;
+}
