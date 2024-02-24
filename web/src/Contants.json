@@ -1,4 +1,6 @@
 {
   "title": "Title Should not be Empty",
-  "description": "Description Should Not be Empty"
+  "description": "Description Should Not be Empty",
+  "email": "Not a valid Email",
+  "password": "Not a Valid Password"
 }

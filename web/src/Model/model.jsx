@@ -19,9 +19,11 @@ const Model = (props) => {
             try {
                 if (Object.keys(errors).length === 0 && isSubmit) {
                     setSpinner(true)
-                    const res = await axios.post(import.meta.env.VITE_SAVETASK, currtaskData)
+                    console.log(currtaskData)
+                    const res = await axios.post(import.meta.env.VITE_SAVETASK, { ...currtaskData, ["status"]: 0 })
                     toast.success('Saved Successfully')
                     setSpinner(false)
+                    window.location.reload();
                 }
             }
             catch (e) {
