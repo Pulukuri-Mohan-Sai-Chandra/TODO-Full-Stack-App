@@ -7,6 +7,8 @@ import { ValidateRegister } from '../Utils/DataValidator'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 import Spinner from '../Spinner/Spinner'
+import {encodePass} from '../Utils/EncodePassword'
+import {messages} from '../Utils/GetMessages'
 const Register = (props) => {
     const navigate = useNavigate();
     const [regform, setRegform] = useState(registerData)
@@ -27,9 +29,9 @@ const Register = (props) => {
         const register = async () => {
             try {
                 setLoading(true);
-                const res = await axios.post(import.meta.env.VITE_REGISTER, regform)
-                console.log(res)
-                toast.success(res.data?.message)
+                const res = await axios.post(import.meta.env.VITE_REGISTER, {...regform,['password']:encodePass(regform.password),['cnfpassword']:encodePass(regform.cnfpassword)})
+                console.log("-------------------",res)
+                toast.success(messages[res.status])
                 setLoading(false);
             }
             catch (e) {

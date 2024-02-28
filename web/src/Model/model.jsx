@@ -1,4 +1,3 @@
-import fs from 'fs'
 import React, { useEffect, useState } from "react";
 import '../index.css'
 import Spinner from '../Spinner/Spinner'
@@ -6,7 +5,6 @@ import taskData from './taskdata.json'
 import { toast } from 'react-toastify'
 import axios from 'axios';
 import { ValidateData } from '../Utils/DataValidator'
-
 const Model = (props) => {
     const { closeModel } = props;
     const [spinner, setSpinner] = useState(false)
@@ -15,12 +13,11 @@ const Model = (props) => {
     const [isSubmit, setIsSubmit] = useState(false)
     useEffect(() => {
         const temp = async () => {
-
             try {
                 if (Object.keys(errors).length === 0 && isSubmit) {
                     setSpinner(true)
-                    console.log(currtaskData)
-                    const res = await axios.post(import.meta.env.VITE_SAVETASK, { ...currtaskData, ["status"]: 0 })
+                    const data = {...currtaskData,['status']:0}
+                    const res = await axios.post(import.meta.env.VITE_SAVETASK,data)
                     toast.success('Saved Successfully')
                     setSpinner(false)
                     window.location.reload();
