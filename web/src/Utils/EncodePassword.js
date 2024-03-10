@@ -1,10 +1,6 @@
-import encrpt from 'crypto-js'
+import CryptoJS from 'crypto-js'
 
-
-
-
-export const encodePass = (password) =>{
-    const encpass = encrpt.AES.encrypt(password,import.meta.env.VITE_PASSHASH)
-    console.log(encpass);
-    return encpass.toString();
+export const encodePass = (password) => {
+    const encpassword = CryptoJS.AES.encrypt(password, import.meta.env.VITE_PASSHASH).toString()
+    return encpassword
 }

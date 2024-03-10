@@ -5,19 +5,21 @@ import taskData from './taskdata.json'
 import { toast } from 'react-toastify'
 import axios from 'axios';
 import { ValidateData } from '../Utils/DataValidator'
+import { useNavigate } from 'react-router-dom'
 const Model = (props) => {
     const { closeModel } = props;
     const [spinner, setSpinner] = useState(false)
     const [currtaskData, setCurrData] = useState(props?.data ? props.data : taskData)
     const [errors, setErrors] = useState({})
     const [isSubmit, setIsSubmit] = useState(false)
+    const progrnavigate = useNavigate();
     useEffect(() => {
         const temp = async () => {
             try {
                 if (Object.keys(errors).length === 0 && isSubmit) {
                     setSpinner(true)
-                    const data = {...currtaskData,['status']:0}
-                    const res = await axios.post(import.meta.env.VITE_SAVETASK,data)
+                    const data = { ...currtaskData, ['status']: 0 }
+                    const res = await axios.post(import.meta.env.VITE_SAVETASK, data)
                     toast.success('Saved Successfully')
                     setSpinner(false)
                     window.location.reload();
@@ -30,6 +32,12 @@ const Model = (props) => {
         }
         temp();
     }, [errors])
+    useEffect(() => {
+        const token = localStorage.getItem("TID");
+        if (token == undefined) {
+            progrnavigate('/auth')
+        }
+    }, [])
     const handleData = (event) => {
         setCurrData({ ...currtaskData, [event.target.name]: event.target.value })
         console.log(JSON.stringify(currtaskData))

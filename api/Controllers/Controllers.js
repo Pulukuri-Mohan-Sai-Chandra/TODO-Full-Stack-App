@@ -1,5 +1,8 @@
 const task = require('../Models/Task')
 const user = require('../Models/User')
+const jwt = require('jsonwebtoken')
+const { decodePassword } = require('../Utils/DecodePassword')
+require('dotenv').config();
 const getAllTasks = async (req, res) => {
     const values = await task.find({})
     res.json({ rows: values })
@@ -82,11 +85,35 @@ const registerUser = async (req, res, next) => {
 
 }
 
-
+const loginuser = async (req, res, next) => {
+    const { loginmail, loginpassword } = req.body;
+    let response = {}
+    try {
+        const userdetails = await user.find({ email: loginmail })
+        if (userdetails.length == 0) {
+            response['message'] = "Not-Found"
+        }
+        else {
+            console.log("User Details ", userdetails[0].password)
+            console.log("LoginPasswod is ", loginpassword)
+            if (decodePassword(userdetails[0].password) === decodePassword(loginpassword)) {
+                response['message'] = 'Successfull'
+            }
+            else {
+                response['message'] = 'Failed'
+            }
+        }
+    }
+    catch (e) {
+        response['message'] = e.message;
+    }
+    res.status(200).json(response)
+}
 module.exports = {
     getAllTasks,
     saveTask,
     updateTask,
     deleteTask,
-    registerUser
+    registerUser,
+    loginuser
 }

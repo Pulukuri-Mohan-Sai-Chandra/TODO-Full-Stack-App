@@ -37,6 +37,12 @@ function App() {
     isLogged();
     getData();
   }, [])
+  useEffect(() => {
+    const token = localStorage.getItem('TID');
+    if (token == undefined) {
+      navigate('/auth')
+    }
+  }, [])
   const handleEdit = (row) => {
     setModOpen(true)
     setEditData(row)
