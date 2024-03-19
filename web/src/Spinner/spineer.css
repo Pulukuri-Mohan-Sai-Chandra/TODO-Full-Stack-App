@@ -1,28 +1,57 @@
-.spinner-green{
+.spinner-green {
     width: 1rem;
     height: 1rem;
     padding: 0.1rem;
     margin: 0.1rem;
     border: solid 3px white;
-    border-top: solid 3px green ;
+    border-top: solid 3px green;
     border-radius: 50%;
     animation: spin 0.3s linear infinite;
 }
-.spinner-red{
+
+.spinner-red {
     width: 1rem;
     height: 1rem;
     padding: 0.1rem;
     margin: 0.1rem;
     border: solid 3px white;
-    border-top: solid 3px red ;
+    border-top: solid 3px red;
     border-radius: 50%;
     animation: spin 0.3s linear infinite;
 }
-@keyframes spin{
-    0%{
+
+.spinner-background {
+    width: 100vw;
+    height: 100vh;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(11.8px);
+    -webkit-backdrop-filter: blur(11.8px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    text-align: center;
+    overflow: hidden;
+}
+
+.full-spinner {
+    width: 100px;
+    height: 100px;
+    border: 8px solid white;
+    border-top: 8px solid darkblue;
+    border-radius: 50%;
+    animation: spin 1s ease-in-out infinite;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 200px;
+
+}
+
+@keyframes spin {
+    0% {
         transform: rotate(0deg);
     }
-    100%{
+
+    100% {
         transform: rotate(360deg);
     }
 }

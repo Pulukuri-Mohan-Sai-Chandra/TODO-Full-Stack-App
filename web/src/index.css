@@ -8,6 +8,10 @@
   font-family: "DM Sans";
 }
 
+.logOut {
+  position: absolute;
+  top: 3rem;
+}
 
 .todoApp {
   display: flex;
@@ -18,6 +22,89 @@
 
 }
 
+.auth {
+  padding: 2rem;
+  border: solid 2px gray;
+  margin-left: auto;
+  margin-right: auto;
+  width: fit-content;
+  border-radius: 1.5rem;
+  background-color: white;
+
+}
+
+
+.auth-background {
+  background-color: #EEF5FF;
+  width: 100vw;
+  height: 100vh;
+  overflow: auto;
+}
+
+.message {
+  color: red;
+}
+
+.message-green {
+  color: green
+}
+
+.auth_navbar {
+  padding: 1rem 1rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.auth-nav-btn {
+  padding: 0.5rem;
+  font-size: 1.6rem;
+  text-align: center;
+  cursor: pointer;
+}
+
+.auth-nav-btn-active {
+  padding: 0.5rem;
+  font-size: 1.6rem;
+  text-align: center;
+  border-bottom: solid 4px #0B60B0;
+  cursor: pointer;
+}
+
+.login-label {
+  margin-bottom: 0.2rem;
+  font-size: 1.2rem;
+}
+
+.input_group {
+  margin-bottom: 0.7rem;
+  display: flex;
+  flex-direction: column;
+
+}
+
+.button_group {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.login_btn {
+  padding: 0.6rem;
+  border-radius: 0.3rem;
+  border: solid 2px #0B60B0;
+  background-color: #0B60B0;
+  color: #EEF5FF;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.task-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  height: 100vh;
+}
 
 .new-button {
   text-align: end;
@@ -78,8 +165,14 @@ tbody {
   top: 0;
   height: 100%;
   width: 100%;
-  padding: 1rem;
-  background-color: #EEF5FF;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(11.8px);
+  -webkit-backdrop-filter: blur(11.8px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  text-align: center;
+  overflow: hidden;
 }
 
 .modelContainer {
@@ -88,11 +181,10 @@ tbody {
   margin: auto;
   flex-direction: column;
   justify-content: center;
-  box-shadow: 2px 2px 15px black;
   background-color: white;
+  margin-top: 2rem;
   padding: 1rem;
   border-radius: 1rem;
-  border: solid 1.5px black;
 
 }
 
@@ -115,7 +207,30 @@ textarea::selection {
   padding: 0.4rem;
   margin-bottom: 1rem;
   width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
+
+.userDetails {
+  background-color: white;
+  color: #0B60B0;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  margin-right: 2rem;
+  font-weight: bold;
+  padding: 1rem;
+  cursor: pointer;
+}
+
+
+
+
 
 .heading {
   color: white;
@@ -141,14 +256,14 @@ textarea::selection {
   flex-direction: column;
 }
 
-.input {
+input {
   padding: 0.5rem;
   border-radius: 0.5rem;
   border: solid 1px gray;
-
+  font-size: 1.2rem;
 }
 
-.input:focus {
+input:focus {
   padding: 0.5rem;
   border-radius: 0.5rem;
 
