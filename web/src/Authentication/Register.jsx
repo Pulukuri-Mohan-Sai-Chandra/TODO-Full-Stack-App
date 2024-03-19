@@ -29,7 +29,7 @@ const Register = (props) => {
         const register = async () => {
             try {
                 setLoading(true);
-                const res = await axios.post(import.meta.env.VITE_REGISTER, { ...regform, ['password']: encodePass(regform.password), ['cnfpassword']: encodePass(regform.cnfpassword) })
+                const res = await axios.post(import.meta.env.VITE_REGISTER, { ...regform, ['password']: encodePass(regform.password), ['cnfpassword']: encodePass(regform.cnfpassword) }, { withCredentials: true })
                 console.log("-------------------", res)
                 toast.success(messages[res.status])
                 setLoading(false);

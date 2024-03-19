@@ -1,13 +1,20 @@
- 
- export const verifyUser = async () =>{
-    let TID = localStorage.getItem('TID')
-    if(TID == undefined) return false; 
-    try{
-        let response = await axios.post(import.meta.env.VITE_VERIFY_USER,{token:TID})
-        if(response.data.flag == true) return true 
-        return false;
+
+
+
+
+export const verifyUser = async () => {
+
+    try {
+
+        let res = await fetch(import.meta.env.VITE_VERIFY_USER, {
+            credentials: "include"
+        })
+        let data = await res.json();
+        return data;
     }
-    catch(e){
-         return false; 
+    catch (e) {
+        return { "message": e.message }
     }
- }
+
+
+}

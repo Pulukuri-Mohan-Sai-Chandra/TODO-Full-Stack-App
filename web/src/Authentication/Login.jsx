@@ -4,7 +4,7 @@ import { encodePass } from '../Utils/EncodePassword'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import {getHeaders} from '../Utils/RequestHeaders'
+import { getHeaders } from '../Utils/RequestHeaders'
 import Cookies from 'js-cookie'
 import '../index.css'
 const Login = (props) => {
@@ -28,17 +28,26 @@ const Login = (props) => {
         }
         console.log('Out Auth Data is ', outauthdata)
         try {
-            const response = await axios.post(import.meta.env.VITE_LOGIN, outauthdata,getHeaders)
+            const response = await axios.post(import.meta.env.VITE_LOGIN, outauthdata, getHeaders)
             console.log(response)
             console.log()
-            if(response.data.message === 'Login Successfull'){ 
+            if (response.data.message == 'Login Successfull') {
                 const tid = Cookies.get("TID")
-                if(tid != undefined){
-                    localStorage.setItem("TID",tid)
+                if (tid != undefined) {
+                    localStorage.setItem("TID", tid)
+                    prognavigate('/')
+                }
+                else {
+                    toast.error("Email Or Password is Incorrect")
+                    prognavigate('/auth')
                 }
             }
-            console.log('Response from Server is ', response)
-            prognavigate('/')
+            else {
+                toast.error("Email Or Password is Incorrect")
+                prognavigate('/auth')
+            }
+
+
         }
         catch (e) {
             toast.error(e.message)

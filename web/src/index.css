@@ -8,6 +8,10 @@
   font-family: "DM Sans";
 }
 
+.logOut {
+  position: absolute;
+  top: 3rem;
+}
 
 .todoApp {
   display: flex;
@@ -161,8 +165,14 @@ tbody {
   top: 0;
   height: 100%;
   width: 100%;
-  padding: 1rem;
-  background-color: #EEF5FF;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(11.8px);
+  -webkit-backdrop-filter: blur(11.8px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  text-align: center;
+  overflow: hidden;
 }
 
 .modelContainer {
@@ -171,11 +181,10 @@ tbody {
   margin: auto;
   flex-direction: column;
   justify-content: center;
-  box-shadow: 2px 2px 15px black;
   background-color: white;
+  margin-top: 2rem;
   padding: 1rem;
   border-radius: 1rem;
-  border: solid 1.5px black;
 
 }
 
@@ -198,7 +207,30 @@ textarea::selection {
   padding: 0.4rem;
   margin-bottom: 1rem;
   width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
+
+.userDetails {
+  background-color: white;
+  color: #0B60B0;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  margin-right: 2rem;
+  font-weight: bold;
+  padding: 1rem;
+  cursor: pointer;
+}
+
+
+
+
 
 .heading {
   color: white;

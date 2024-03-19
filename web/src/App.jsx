@@ -7,6 +7,8 @@ import Model from './Model/model';
 import Spinner from './Spinner/Spinner'
 import axios, { all } from 'axios'
 import { toast } from 'react-toastify'
+import OverLaySpinner from './Spinner/OverlaySpinner'
+import UserDetails from './UserDetails/index'
 
 function App() {
   const navigate = useNavigate();
@@ -16,22 +18,35 @@ function App() {
   const [editdata, setEditData] = useState({})
   const [todoTasks, setTodoTasks] = useState([]);
   const [doneTasks, setDoneTasks] = useState([]);
+  const [overlayflag, setOverLaySpinner] = useState(false)
 
+  const wait = () => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve("done")
+      }, 3000);
+    })
+  }
   useEffect(() => {
-    let todotsk = alltasks.filter((obj) => obj.status == 0)
-    let donetsk = alltasks.filter((obj) => obj.status != 0)
+    setOverLaySpinner(true)
+    let todotsk = alltasks?.filter((obj) => obj.status == 0)
+    let donetsk = alltasks?.filter((obj) => obj.status != 0)
     setDoneTasks(donetsk)
     setTodoTasks(todotsk)
+    setOverLaySpinner(false)
   }, [alltasks])
   useEffect(() => {
+    setOverLaySpinner(true)
     const getData = async () => {
       try {
-        let response = await axios.get(import.meta.env.VITE_GETTASKS)
+        let response = await axios.get(import.meta.env.VITE_GETTASKS, { withCredentials: true })
         console.log(response)
         setAllTasks(response.data.rows)
+        setOverLaySpinner(false)
       }
       catch (e) {
         console.log(e.message)
+        setOverLaySpinner(false)
       }
     }
     isLogged();
@@ -49,7 +64,7 @@ function App() {
   }
   const handleComplete = async (row) => {
     try {
-      let response = await axios.post(import.meta.env.VITE_UPDATETASK, { ...row, ["status"]: 1 })
+      let response = await axios.post(import.meta.env.VITE_UPDATETASK, { ...row, ["status"]: 1 }, { withCredentials: true })
       toast.success("Completed")
       window.location.reload();
     }
@@ -61,7 +76,7 @@ function App() {
     row.spin = true
     setSpinner(true)
     try {
-      const res = await axios.post(import.meta.env.VITE_DELETETASK, row)
+      const res = await axios.post(import.meta.env.VITE_DELETETASK, row, { withCredentials: true })
       toast.success("Deleted Successfully")
       setSpinner(false)
       window.location.reload()
@@ -88,91 +103,97 @@ function App() {
     console.log(TUID)
   }
   return (
-    < div className='todoApp' >
-      <div className="title">
-        <h1 className='heading'>TO-DO App</h1>
-      </div>
-      <div className="newContainer">
-        <div className="new-button">
-          <button className='newtask-btn' onClick={() => handleNewTask()}>New Task</button>
-        </div>
-        {
-          modopen && <Model closeModel={setModOpen} data={editdata} />
-        }
-      </div>
-      <div className="task-container">
-        <div className="todoTasks">
-          <div className="taskListing">
-            <div className="bar">
-            </div>
-            <table>
-              <thead>
-                <th>No</th>
-                <th>Title</th>
-                <th></th>
-                <th></th>
-                <th></th>
-              </thead>
-              <div className="lineBreak">
 
-              </div>
-              <tbody>
-                {
-                  (todoTasks.length > 0 && todoTasks.map((val, index) => (
-                    <tr key={index}>
-                      <td>{index + 1}</td>
-                      <td>{val.title}</td>
-                      <div className="operations">
-                        <button disabled={val.spin} id={index} className="cancel" onClick={() => deleteTask(val)} >{(val.spin) ? <Spinner color={'red'} /> : "Delete"}</button>
-                        <button disabled={val.spin} key={index} onClick={() => handleComplete(val)} className="save-btn">Completed</button>
-                        <button onClick={() => handleEdit(val)} className="edit-btn">Edit</button>
-                      </div>
-                    </tr>
-                  )))
-                }
-              </tbody>
-            </table>
-            <div className="bar">
-            </div>
+    <>
+      {
+        (overlayflag) ? <OverLaySpinner /> : < div className='todoApp' >
+          <div className="title">
+            <h1 className='heading'>TO-DO App</h1>
+            <UserDetails />
           </div>
-        </div>
-        <div className="doneTasks">
-          <div className="taskListing">
-            <div className="bar">
+          <div className="newContainer">
+            <div className="new-button">
+              <button className='newtask-btn' onClick={() => handleNewTask()}>New Task</button>
             </div>
-            <table>
-              <thead>
-                <th>No</th>
-                <th>Title</th>
-                <th></th>
-                <th></th>
-                <th></th>
-              </thead>
-              <div className="lineBreak">
-
-              </div>
-              <tbody>
-                {
-                  (doneTasks.length > 0 && doneTasks.map((val, index) => (
-                    <tr key={index}>
-                      <td style={{ fontStyle: "italic", color: 'gray' }} >{index + 1}</td>
-                      <td style={{ textDecoration: "line-through", fontStyle: "italic", color: 'gray' }} >{val.title}</td>
-                      <div className="operations">
-                        <button disabled={val.spin} id={index} className="cancel" onClick={() => deleteTask(val)} >{(val.spin) ? <Spinner color={'red'} /> : "Delete"}</button>
-                      </div>
-                    </tr>
-                  )))
-                }
-              </tbody>
-            </table>
-            <div className="bar">
-            </div>
+            {
+              modopen && <Model closeModel={setModOpen} data={editdata} />
+            }
           </div>
-        </div>
+          <div className="task-container">
+            <div className="todoTasks">
+              <div className="taskListing">
+                <div className="bar">
+                </div>
+                <table>
+                  <thead>
+                    <th>No</th>
+                    <th>Title</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                  </thead>
+                  <div className="lineBreak">
+
+                  </div>
+                  <tbody>
+                    {
+                      (todoTasks != undefined && todoTasks?.length > 0 && todoTasks.map((val, index) => (
+                        <tr key={index}>
+                          <td>{index + 1}</td>
+                          <td>{val.title}</td>
+                          <div className="operations">
+                            <button disabled={val.spin} id={index} className="cancel" onClick={() => deleteTask(val)} >{(val.spin) ? <Spinner color={'red'} /> : "Delete"}</button>
+                            <button disabled={val.spin} key={index} onClick={() => handleComplete(val)} className="save-btn">Completed</button>
+                            <button onClick={() => handleEdit(val)} className="edit-btn">Edit</button>
+                          </div>
+                        </tr>
+                      )))
+                    }
+                  </tbody>
+                </table>
+                <div className="bar">
+                </div>
+              </div>
+            </div>
+            <div className="doneTasks">
+              <div className="taskListing">
+                <div className="bar">
+                </div>
+                <table>
+                  <thead>
+                    <th>No</th>
+                    <th>Title</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                  </thead>
+                  <div className="lineBreak">
+
+                  </div>
+                  <tbody>
+                    {
+                      (doneTasks != undefined && doneTasks?.length > 0 && doneTasks.map((val, index) => (
+                        <tr key={index}>
+                          <td style={{ fontStyle: "italic", color: 'gray' }} >{index + 1}</td>
+                          <td style={{ textDecoration: "line-through", fontStyle: "italic", color: 'gray' }} >{val.title}</td>
+                          <div className="operations">
+                            <button disabled={val.spin} id={index} className="cancel" onClick={() => deleteTask(val)} >{(val.spin) ? <Spinner color={'red'} /> : "Delete"}</button>
+                          </div>
+                        </tr>
+                      )))
+                    }
+                  </tbody>
+                </table>
+                <div className="bar">
+                </div>
+              </div>
+            </div>
 
 
-      </div>
-    </div >
+          </div>
+        </div >
+      }
+    </>
 
   )
 }

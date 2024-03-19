@@ -3,17 +3,12 @@ const user = require('../Models/User')
 const jwt = require('jsonwebtoken')
 const { decodePassword } = require('../Utils/DecodePassword');
 require('dotenv').config();
-const verifyUser = (req,res,next)=>{
-    console.log("Insed the verify User method ")
-    const {token } = req.headers.cookie;
-    console.log('token ', token)
-    console.log("JWT Verification",jwt.verify(token,process.env.PASSWORD_SECRET))
-    res.send({flag:true})
 
-} 
 const getAllTasks = async (req, res) => {
-    const values = await task.find({})
+    console.log("Inside the Get All Tasks Method")
+    const values = await task.find({ createdBy: req.user.userid })
     res.json({ rows: values })
+    console.log("Values of the tasks", JSON.stringify(values))
 }
 const saveTask = async (req, res) => {
     let response = {}
@@ -24,8 +19,9 @@ const saveTask = async (req, res) => {
             response = data;
         }
         else {
-
-            const data = await new task(req.body).save();
+            const { usermail, userid } = req.user
+            const data = await new task({ createdBy: userid, ...req.body }).save();
+            console.log("Date is  ", JSON.stringify(data))
             response = data
         }
     }
@@ -94,28 +90,30 @@ const registerUser = async (req, res, next) => {
 }
 
 const loginuser = async (req, res, next) => {
-    const{loginmail,loginpassword} = req.body;
-    if(loginmail.length == 0 || loginmail.length == 0){
-        response = {message: "Login mail and Login Password should be required"}
+    const { loginmail, loginpassword } = req.body;
+    if (loginmail.length == 0 || loginmail.length == 0) {
+        response = { message: "Login mail and Login Password should be required" }
     }
-    else{
-        try{
-            let userDetails = await user.find({email:loginmail});
+    else {
+        try {
+            let userDetails = await user.find({ email: loginmail });
+            console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$", userDetails)
             let incpass = decodePassword(loginpassword)
             let uspass = decodePassword(userDetails[0].password)
-            if(incpass == uspass){
-                let authdata = {mail:loginmail,password:uspass}
-                const token = jwt.sign(authdata,process.env.PASSWORD_SECRET)
-                res.cookie("TID",token)
-                response = {"message":"Login Successfull"}
+            if (incpass == uspass) {
+                let authdata = { usermail: loginmail, userid: userDetails[0]._id }
+                console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@", authdata)
+                const token = jwt.sign(authdata, process.env.PASSWORD_SECRET)
+                res.cookie("TID", token)
+                response = { "message": "Login Successfull" }
             }
-            else{
-                response = {message:"Email or Password is Incorrect"}
+            else {
+                response = { message: "Email or Password is Incorrect" }
             }
         }
-        catch(e){
+        catch (e) {
             console.log(e)
-            response = {message: e.message}
+            response = { message: e.message }
         }
     }
     res.status(200).json(response)
@@ -129,5 +127,4 @@ module.exports = {
     deleteTask,
     registerUser,
     loginuser,
-    verifyUser
 }

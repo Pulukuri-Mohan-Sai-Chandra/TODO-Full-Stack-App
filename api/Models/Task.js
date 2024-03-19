@@ -5,10 +5,10 @@ const TaskSchema = mongoose.Schema({
         type: Date,
         default: Date.now
     },
-    // createdBy: {
-    //     type: mongoose.Types.ObjectId,
-    //     ref: 'user'
-    // },
+    createdBy: {
+        type: mongoose.Types.ObjectId,
+        required: true
+    },
     title: {
         type: String,
         required: true
